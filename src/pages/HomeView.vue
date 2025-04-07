@@ -1,15 +1,15 @@
 <template>
   <div
     class="md:min-h-[100vh] flex flex-col justify-between homepage rounded-bl-xl rounded-br-xl py-12">
-    <div class="flex w-full px-8 md:px-16">
-      <img src="../assets/images/obed.png" alt="Wedding rings" width="100" />
-    </div>
     <div class="text-white flex flex-col justify-center items-center flex-grow gap-14">
       <div class="flex justify-center">
         <img src="../assets/images/rings.png" alt="Wedding rings" width="70" />
       </div>
       <div class="border-4 py-8 px-10 rounded-md">
         <div class="border-b-4 pb-4">
+          <div class="flex w-full justify-center">
+            <img src="../assets/images/obed.png" alt="Wedding rings" width="80" />
+          </div>
           <h1 class="text-4xl sm:text-5xl md:text-6xl lobster-regular text-center">
             Obed & Abigail
           </h1>
@@ -45,7 +45,7 @@
       <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
         <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
           <Logs size="30" color="#eedccc" />
-          <p> Programme</p>
+          <p>Programme</p>
         </div>
       </div>
       <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
