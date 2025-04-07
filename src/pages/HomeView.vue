@@ -1,6 +1,9 @@
 <template>
   <div
-    class="min-h-[100vh] flex flex-col justify-between homepage rounded-bl-xl rounded-br-xl py-12 relative">
+    class="md:min-h-[100vh] flex flex-col justify-between homepage rounded-bl-xl rounded-br-xl py-12">
+    <div class="flex w-full px-8 md:px-16">
+      <img src="../assets/images/obed.png" alt="Wedding rings" width="100" />
+    </div>
     <div class="text-white flex flex-col justify-center items-center flex-grow gap-14">
       <div class="flex justify-center">
         <img src="../assets/images/rings.png" alt="Wedding rings" width="70" />
@@ -27,6 +30,34 @@
       </div>
     </div>
   </div>
+
+  <!-- Action buttons section -->
+  <div class="p-8 md:p-16 lg:py-20 bg-[#f8f4f0]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div
+        @click="toggleLocationsModal"
+        class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
+        <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
+          <MapPin size="30" color="#eedccc" />
+          <p>Wedding Location</p>
+        </div>
+      </div>
+      <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
+        <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
+          <Logs size="30" color="#eedccc" />
+          <p> Programme</p>
+        </div>
+      </div>
+      <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
+        <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
+          <Camera size="30" color="#eedccc" />
+          <p>Wedding Photos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote Section -->
   <div class="p-8 py-16">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="flex justify-center">
@@ -51,29 +82,9 @@
       </div>
     </div>
   </div>
-  <div class="p-8 md:p-16 lg:py-20 bg-[#f8f4f0]">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
-        <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
-          <MapPin size="30" color="#eedccc" />
-          <p>Wedding Location</p>
-        </div>
-      </div>
-      <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
-        <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
-          <Logs size="30" color="#eedccc" />
-          <p>Wedding Programme</p>
-        </div>
-      </div>
-      <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
-        <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
-          <Camera size="30" color="#eedccc" />
-          <p>Wedding Photos</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="p-8 py-16">
+
+  <!-- Footer -->
+  <div class="p-8 py-16 bg-[#f8f4f0]">
     <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
       <div class="w-[200px] h-[200px] rounded-full overflow-hidden">
         <img src="/main.jpg" alt="" width="200" class="rounded-full" />
@@ -86,71 +97,24 @@
       </div>
     </div>
   </div>
+  <div class="fixed z-[105]">
+    <LocationsModal @close-modal="toggleLocationsModal" v-if="showLocationModal" />
+  </div>
 </template>
 
 <script setup>
+import { getFormattedDate, scrollDown } from "@/functions";
 import { Camera, ChevronDown, Logs, MapPin } from "lucide-vue-next";
+import { ref } from "vue";
+import LocationsModal from "@/components/LocationsModal.vue";
 
-const formatDate = (date) => {
-  const newDate = new Date("04-12-2025");
-  const dd = String(newDate.getDate()).padStart(2, "0");
-  const mm = String(newDate.getMonth() + 1).padStart(2, "0");
-  const yyyy = newDate.getFullYear();
-  return `${dd} ● ${mm} ● ${yyyy}`;
-};
+const showLocationModal = ref(false);
 
-function getFormattedDate(date = new Date("2025-04-12")) {
-  // Use "YYYY-MM-DD" format
-  if (!(date instanceof Date) || isNaN(date)) {
-    throw new Error("Invalid date provided");
-  }
-
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const dayName = days[date.getDay()];
-  const day = date.getDate();
-  const monthName = months[date.getMonth()];
-  const year = date.getFullYear();
-
-  const getOrdinal = (n) => {
-    if (n > 3 && n < 21) return "th";
-    switch (n % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  return `${dayName}, ${day}${getOrdinal(day)} ${monthName} ${year}`;
-}
-
-const scrollDown = () => {
-  window.scrollBy({
-    top: window.innerHeight * 1,
-    left: 0,
-    behavior: "smooth",
-  });
+const toggleLocationsModal = () => {
+  showLocationModal.value = !showLocationModal.value;
 };
 </script>
+
 <style scoped>
 .main {
   background-image: url("/main.jpg");
