@@ -12,7 +12,7 @@
           </h1>
           <p class="mt-2 text-center uppercase">We're Getting Married!</p>
         </div>
-        <div class="pt-4">
+        <div class="pt-4 text-lg">
           <p class="text-center">{{ getFormattedDate() }}</p>
         </div>
       </div>
@@ -76,7 +76,7 @@
   <div class="p-8 py-16">
     <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
       <div class="w-[200px] h-[200px] rounded-full overflow-hidden">
-        <img src="../assets/images/main.jpg" alt="" width="200" class="rounded-full" />
+        <img src="/main.jpg" alt="" width="200" class="rounded-full" />
       </div>
       <div class="text-center md:text-left">
         <p class="lobster-regular text-3xl text-[#d99937]">
@@ -91,7 +91,20 @@
 <script setup>
 import { Camera, ChevronDown, Logs, MapPin } from "lucide-vue-next";
 
-function getFormattedDate(date = new Date("04-12-2025")) {
+const formatDate = (date) => {
+  const newDate = new Date("04-12-2025");
+  const dd = String(newDate.getDate()).padStart(2, "0");
+  const mm = String(newDate.getMonth() + 1).padStart(2, "0");
+  const yyyy = newDate.getFullYear();
+  return `${dd} ● ${mm} ● ${yyyy}`;
+};
+
+function getFormattedDate(date = new Date("2025-04-12")) {
+  // Use "YYYY-MM-DD" format
+  if (!(date instanceof Date) || isNaN(date)) {
+    throw new Error("Invalid date provided");
+  }
+
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const months = [
     "January",
@@ -132,7 +145,7 @@ function getFormattedDate(date = new Date("04-12-2025")) {
 
 const scrollDown = () => {
   window.scrollBy({
-    top: window.innerHeight * 1, 
+    top: window.innerHeight * 1,
     left: 0,
     behavior: "smooth",
   });
@@ -140,12 +153,11 @@ const scrollDown = () => {
 </script>
 <style scoped>
 .main {
-  background-image: url("src/assets/images/nai.jpg");
+  background-image: url("/main.jpg");
 }
 
 .homepage {
-  background: linear-gradient(0deg, rgb(45, 12, 5, 0.9), rgba(141, 86, 42, 0.8)),
-    url("src/assets/images/main.jpg");
+  background: linear-gradient(0deg, rgb(45, 12, 5, 0.9), rgba(141, 86, 42, 0.8)), url("/main.jpg");
   margin-top: 0px;
   background-repeat: repeat;
   background-size: contain;
