@@ -4,12 +4,12 @@
       <div class="flex items-center text-lg">Location</div>
     </template>
     <template #body>
-      <div class="min-h-[70vh] md:min-h-[60vh]">
+      <div class="min-h-[50vh] sm:min-h-[70vh] md:min-h-[60vh]">
         <div>
           <div class="mb-1">
             <p class="font-medium">Please select an option</p>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-4 text-center">
             <div
               class="p-4 rounded-md duration-300 cursor-pointer"
               :class="
@@ -40,16 +40,16 @@
             </div>
           </div>
         </div>
-        <div class="mt-6">
+        <div class="mt-2 md:mt-6">
           <!-- Location Details -->
-          <div v-if="selectedLocation" class="mb-4">
+          <div v-if="selectedLocation" class="mb-1 md:mb-4">
             <h3 class="text-lg font-semibold mb-2">{{ locationDetails[selectedLocation].name }}</h3>
             <!-- <p class="mb-1">{{ locationDetails[selectedLocation].address }}</p>
             <p class="text-sm text-gray-600">{{ locationDetails[selectedLocation].description }}</p> -->
           </div>
 
           <!-- Google Map -->
-          <div class="w-full h-64 bg-gray-100 rounded-lg overflow-hidden relative">
+          <div class="w-full h-48 md:h-64 bg-gray-100 rounded-lg overflow-hidden relative">
             <!-- Google Maps iframe -->
             <iframe
               v-if="selectedLocation"
@@ -74,7 +74,9 @@
           @click="openInGoogleMaps">
           Open Location in Google Maps
         </fwb-button>
-        <fwb-button @click="closeModal" color="dark"> Close </fwb-button>
+        <div class="hidden md:flex">
+          <fwb-button @click="closeModal" color="dark"> Close </fwb-button>
+        </div>
       </div>
     </template>
   </fwb-modal>
@@ -93,9 +95,9 @@ const locationDetails = {
     name: "Sapeiman",
     address: "",
     description: "",
-    coordinates: "5.731781,-0.316975",
+    coordinates: "5.592861,-0.1778379",
     mapUrl:
-      "https://www.google.com/maps/place/5%C2%B043'54.4%22N+0%C2%B019'01.1%22W/@5.7317807,-0.3195498,17z/data=!3m1!4b1!4m4!3m3!8m2!3d5.7317807!4d-0.3169749?entry=ttu&g_ep=EgoyMDI1MDQwMi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D",
+      "https://www.google.com/maps/place//@5.592861,-0.1778379,5053m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MDQwNi4wIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D",
   },
   wedding: {
     name: "The Church of Pentecost, Latter Rain Assembly, Mallam Kokroko",
@@ -137,3 +139,9 @@ function closeModal() {
   emit("closeModal");
 }
 </script>
+
+<style scoped>
+* {
+  @apply text-xs sm:text-base;
+}
+</style>
