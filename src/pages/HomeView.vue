@@ -42,7 +42,9 @@
           <p>Wedding Location</p>
         </div>
       </div>
-      <div class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
+      <div
+        @click="toggleProgramsModal"
+        class="p-4 bg-[#9e7148] rounded-md cursor-pointer hover:bg-[#cb925c] duration-300">
         <div class="flex items-center gap-2 text-[#eedccc] justify-center py-8">
           <Logs size="30" color="#eedccc" />
           <p>Programme</p>
@@ -99,6 +101,7 @@
   </div>
   <div class="fixed z-[105]">
     <LocationsModal @close-modal="toggleLocationsModal" v-if="showLocationModal" />
+    <ProgramModal @close-modal="toggleProgramsModal" v-if="showProgramsModal" />
   </div>
 </template>
 
@@ -107,11 +110,17 @@ import { getFormattedDate, scrollDown } from "@/functions";
 import { Camera, ChevronDown, Logs, MapPin } from "lucide-vue-next";
 import { ref } from "vue";
 import LocationsModal from "@/components/LocationsModal.vue";
+import ProgramModal from "@/components/ProgramModal.vue";
 
 const showLocationModal = ref(false);
+const showProgramsModal = ref(false);
 
 const toggleLocationsModal = () => {
   showLocationModal.value = !showLocationModal.value;
+};
+
+const toggleProgramsModal = () => {
+  showProgramsModal.value = !showProgramsModal.value;
 };
 </script>
 
